@@ -11,14 +11,15 @@ const cursorDot = ({
   borderWidth = 1,
   borderColor = '#ddd',
   easing = 4,
-  background = 'transparent'
+  background = 'transparent',
+  blendMode = 'normal'
 } = {}) => {
   let inited = false
   const alt = { x: 0, y: 0, o: 1, d: diameter }
   const cur = { x: 0, y: 0, o: 0, d: diameter }
   const dot = document.createElement('div')
   const tim = easing / 15
-  dot.style = `position:fixed;top:0;left:0;border-radius:100%;pointer-events:none;opacity:0;z-index:${zIndex};height:${diameter}px;width:${diameter}px;background:${background};border:${borderWidth}px solid ${borderColor};mix-blend-mode:exclusion;transition:background ${tim}s,border ${tim}s;will-change:transform`
+  dot.style = `position:fixed;top:0;left:0;border-radius:100%;pointer-events:none;opacity:0;z-index:${zIndex};height:${diameter}px;width:${diameter}px;background:${background};border:${borderWidth}px solid ${borderColor};mix-blend-mode:${blendMode};transition:background ${tim}s,border ${tim}s;will-change:transform`
 
   document.addEventListener('mousemove', e => {
     alt.x = e.clientX
@@ -64,11 +65,13 @@ const cursorDot = ({
         if (style.background) dot.style.backgroundColor = style.background
         if (style.borderColor) dot.style.borderColor = style.borderColor
         if (style.scale) alt.d = diameter * style.scale
+        if (style.blendMode) dot.style.setProperty('--blend-mode', style.blendMode)
       })
       el.addEventListener('mouseout', _ => {
         if (style.background) dot.style.backgroundColor = background
         if (style.borderColor) dot.style.borderColor = borderColor
         if (style.scale) alt.d = diameter
+        if (style.blendMode) dot.style.setProperty('--blend-mode', blendMode)
       })
     }
     if (isEl(any)) fn(any)
