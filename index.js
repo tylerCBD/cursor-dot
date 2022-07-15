@@ -19,7 +19,7 @@ const cursorDot = ({
   const cur = { x: 0, y: 0, o: 0, d: diameter }
   const dot = document.createElement('div')
   const tim = easing / 15
-  dot.style = `position:fixed;top:0;left:0;border-radius:100%;pointer-events:none;opacity:0;z-index:${zIndex};height:${diameter}px;width:${diameter}px;background:${background};border:${borderWidth}px solid ${borderColor};mix-blend-mode:${blendMode};transition:background ${tim}s,border ${tim}s;will-change:transform`
+  dot.style = `--blend-mode:${blendMode};position:fixed;top:0;left:0;border-radius:100%;pointer-events:none;opacity:0;z-index:${zIndex};height:${diameter}px;width:${diameter}px;background:${background};border:${borderWidth}px solid ${borderColor};mix-blend-mode:var(--blend-mode);transition:background ${tim}s,border ${tim}s;will-change:transform`
 
   document.addEventListener('mousemove', e => {
     alt.x = e.clientX
